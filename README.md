@@ -1,7 +1,11 @@
 # **HarperDB**
----
-A package for connecting Flutter with HarperDB
+
  ![Pub version](https://img.shields.io/badge/Pub-v0.0.1-orange) ![GitHub all releases](https://img.shields.io/github/downloads/HarperDB/harperdb-sdk-flutter/total) ![language](https://img.shields.io/github/languages/count/HarperDB/harperdb-sdk-flutter?color=g&style=plastic) ![lICENCE](https://img.shields.io/badge/Licence-BSD--3-yellow)
+<br> 
+---
+ A package for connecting Flutter with HarperDB
+
+ <br>
  This package provides a way to access HarperDB API database in either SQL or NOSQL format. It is dependent of the http package made by dart-lang. 
  
  
@@ -90,7 +94,8 @@ initialize your function so it starts as the page opens up
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //Accessing the data of the function requires a future builder because the function is a future function and we don't want our page to open before we get the data from the api
+      //Accessing the data of the function requires a future builder because the function is 
+      a future function and we don't want our page to open before we get the data from the api
       body: FutureBuilder(
         future: harperAPI,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
