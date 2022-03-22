@@ -1,6 +1,6 @@
 name: harperdb
 description: A flutter SDK for accessing HarperDB
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/HarperDB/harperdb_sdk_flutter.git
 documentation: https://studio.harperdb.io/resources/marketplace/active
 
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
-    
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
