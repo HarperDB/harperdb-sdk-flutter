@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:harperdb/harperdb.dart';
 
+const HDB_URL = 'http://localhost:9925';
+const HDB_USER = 'HDB_ADMIN';
+const HDB_PASSWORD = 'password';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,16 +27,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // https://flutterharper-colz.harperdbcloud.com
-
-  // SCHEMA - package
-
-  //Table - user
-
-  // The return type is a list and it is initialed late because it waits for the api to retrieve data before it is initialized
-
   late List harperData;
-
   late Future harperAPI;
 
   // This has to be a future function as it would wait for data from the API
@@ -41,10 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List> grabber() async {
     //function must be async and the <List> shows that it should return a list
     var show = await harperDB(
-      // the 'await' will make it waits for data from the api
-      'http://localhost:9925', // Url for your databse.
-      'HDB_ADMIN', // Instance Username.
-      'password', //Instance Password.
+      HDB_URL,
+      HDB_USER,
+      HDB_PASSWORD,
       {
         // Contains the syntax code from HarperDB for operations.
         "operation": "sql",
@@ -73,15 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //Accessing the data of the function requires a future builder because the function is a future function and we don't want our page to open before we get the data from the api
       body: FutureBuilder(
         future: harperAPI,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //what happens when the page is still waiting for data from the API
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          // What happens when the data is received from the API
           else if (snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(
               itemCount: harperData.length,
@@ -101,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           }
-          //What should be  display if all else fails
           else {
             return const Center(
                 child: Text("Something went wrong."));

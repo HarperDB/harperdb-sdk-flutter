@@ -18,52 +18,35 @@ Open your project and type the code below in your terminal
 
 ### Usage
 ***
-First you have to import the package 
+Import the package 
 ```dart
 import 'package:harperdb/harperdb.dart';
 ```
 
-Next create a variable to store the data you get from your function which must be a future
+Set your HDB_URL, HDB_USER, and HDB_PASSWORD variables for use within your application:
 
 ```dart
- // https://flutterharper-colz.harperdbcloud.com
+const HDB_URL = 'http://localhost:9925';
+const HDB_USER = 'HDB_ADMIN';
+const HDB_PASSWORD = 'password';
+```
 
-  // SCHEMA - package
+Build your function (must have async type of Future):
 
-  //Table - user
-
-  // The return type is a list and it is initialed late because it waits for the api to retrieve data before it is initialized
-
-  late List harperData;
-
-  late Future harperAPI;
-
-  // This has to be a future function as it would wait for data from the API
-  // The return type for the function varies, it can either be a Map or a list depending on the operation you are carrying out
-
+```dart
+  // Function must be async
+  // Use <List> return for queries.
+  // Use <Map> for inserts, updates, deletes, etc.
+  
   Future<List> grabber() async {
-    //function must be async and the <List> shows that it should return a list
-    var show = await harperJsonQuery(
-      // the 'await' will make it waits for data from the api
-      'https://flutterharper-colz.harperdbcloud.com', // Url for your databse.
-      'flutter', // Instance Username.
-      'demo', //Instance Password.
+    var show = await harperDB(
+      HDB_URL,
+      HDB_USER,
+      HDB_PASSWORD,
       {
         // Contains the syntax code from HarperDB for operations.
-        "operation":
-            "search_by_conditions", //this could be 'insert','delete','update','search_by_value' etc
-        "schema": "package",
-        "table": "user",
-        "get_attributes": [
-          "*",
-        ],
-        "conditions": [
-          {
-            "search_attribute": "Age",
-            "search_type": "between",
-            "search_value": [8, 29]
-          }
-        ]
+        "operation": "sql",
+        "sql": "select * from dev.dog"
       },
     );
     //this shows you if the query ran properly
@@ -79,7 +62,8 @@ Next create a variable to store the data you get from your function which must b
   }
 ```
 
-initialize your function so it starts as the page opens up
+Call your function on init:
+
 ```dart
   @override
   void initState() {
@@ -88,54 +72,47 @@ initialize your function so it starts as the page opens up
   }
   ```
   
-  Finally when you want to display the results in a function, it adviceable to use a futurebuilder to render it when the data has been obtained from the API
+To display the results of your query, use a FutureBuilder to ensure the data has returned from the API:
   
   ``` dart
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      //Accessing the data of the function requires a future builder because the function is 
-      a future function and we don't want our page to open before we get the data from the api
-      body: FutureBuilder(
-        future: harperAPI,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //what happens when the page is still waiting for data from the API
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          // What happens when the data is received from the API
-          else if (snapshot.connectionState == ConnectionState.done) {
-            return ListView.builder(
-              itemCount: harperData.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Text(
-                    harperData[index]['FirstName'],
-                  ),
-                  title: Text(
-                    harperData[index]['LastName'],
-                    textAlign: TextAlign.center,
-                  ),
-                  trailing: Text(
-                    harperData[index]['Age'].toString(),
-                  ),
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+          body: FutureBuilder(
+            future: harperAPI,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              else if (snapshot.connectionState == ConnectionState.done) {
+                return ListView.builder(
+                  itemCount: harperData.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Text(
+                        harperData[index]['dog_name'],
+                      ),
+                      title: Text(
+                        harperData[index]['owner_name'],
+                        textAlign: TextAlign.center,
+                      ),
+                      trailing: Text(
+                        harperData[index]['dog_age'].toString(),
+                      ),
+                    );
+                  },
                 );
-              },
-            );
-          }
-          //What should be  display if all else fails
-          else {
-            return const Center(
-                child: Text(
-                    "Something went wrong, it is not from you it is from us"));
-          }
-        },
-      ),
-    );
-  }
+              }
+              else {
+                return const Center(
+                    child: Text("Something went wrong."));
+              }
+            },
+          ),
+        );
+        }
+    }
   ```
   
   # **NOTE :**
   The return type of your fucntion is heavily dependent on the function you are carring out. Functions like "insert", "update","upsert" will return Map and not a list, so you only return a list when your function is a search related operation
- 
-  
