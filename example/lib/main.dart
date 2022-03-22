@@ -40,27 +40,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<List> grabber() async {
     //function must be async and the <List> shows that it should return a list
-    var show = await harperJsonQuery(
+    var show = await harperDB(
       // the 'await' will make it waits for data from the api
-      'https://flutterharper-colz.harperdbcloud.com', // Url for your databse.
-      'flutter', // Instance Username.
-      'demo', //Instance Password.
+      'http://localhost:9925', // Url for your databse.
+      'HDB_ADMIN', // Instance Username.
+      'password', //Instance Password.
       {
         // Contains the syntax code from HarperDB for operations.
-        "operation":
-            "search_by_conditions", //this could be 'insert','delete','update','search_by_value' etc
-        "schema": "package",
-        "table": "user",
-        "get_attributes": [
-          "*",
-        ],
-        "conditions": [
-          {
-            "search_attribute": "Age",
-            "search_type": "between",
-            "search_value": [8, 29]
-          }
-        ]
+        "operation": "sql",
+        "sql": "select * from dev.dog"
       },
     );
     //this shows you if the query ran properly
@@ -100,14 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: Text(
-                    harperData[index]['FirstName'],
+                    harperData[index]['dog_name'],
                   ),
                   title: Text(
-                    harperData[index]['LastName'],
+                    harperData[index]['owner_name'],
                     textAlign: TextAlign.center,
                   ),
                   trailing: Text(
-                    harperData[index]['Age'].toString(),
+                    harperData[index]['dog_age'].toString(),
                   ),
                 );
               },
@@ -116,8 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //What should be  display if all else fails
           else {
             return const Center(
-                child: Text(
-                    "Something went wrong, it is not from you it is from us"));
+                child: Text("Something went wrong."));
           }
         },
       ),
