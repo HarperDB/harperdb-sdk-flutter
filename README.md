@@ -38,7 +38,7 @@ Build your function (must have async type of Future):
   // Use <List> return for queries.
   // Use <Map> for inserts, updates, deletes, etc.
   
-  Future<List> grabber() async {
+  Future<List> loadData() async {
     var show = await harperDB(
       HDB_URL,
       HDB_USER,
@@ -67,7 +67,7 @@ Call your function on init:
 ```dart
   @override
   void initState() {
-    harperAPI = grabber();
+    queryHarperDB = loadData();
     super.initState();
   }
   ```
@@ -79,7 +79,7 @@ To display the results of your query, use a FutureBuilder to ensure the data has
     Widget build(BuildContext context) {
         return Scaffold(
           body: FutureBuilder(
-            future: harperAPI,
+            future: queryHarperDB,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

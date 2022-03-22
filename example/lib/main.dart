@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // This has to be a future function as it would wait for data from the API
   // The return type for the function varies, it can either be a Map or a List depending on the operation you are carrying out
 
-  Future<List> grabber() async {
+  Future<List> loadData() async {
     var show = await harperDB(
       HDB_URL,
       HDB_USER,
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //Initialize your function so it runs as the page opens up
   @override
   void initState() {
-    harperAPI = grabber();
+    queryHarperDB = loadData();
     super.initState();
   }
 
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: harperAPI,
+        future: queryHarperDB,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
