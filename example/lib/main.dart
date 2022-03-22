@@ -31,16 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future harperAPI;
 
   // This has to be a future function as it would wait for data from the API
-  // The return type for the function varies, it can either be a Map or a list depending on the operation you are carrying out
+  // The return type for the function varies, it can either be a Map or a List depending on the operation you are carrying out
 
   Future<List> grabber() async {
-    //function must be async and the <List> shows that it should return a list
     var show = await harperDB(
       HDB_URL,
       HDB_USER,
       HDB_PASSWORD,
       {
-        // Contains the syntax code from HarperDB for operations.
         "operation": "sql",
         "sql": "select * from dev.dog"
       },
