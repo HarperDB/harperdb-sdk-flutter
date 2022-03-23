@@ -9,3 +9,7 @@
 ## 0.0.3
 
 * Update Docs
+
+## 0.0.4
+
+* Update Docs

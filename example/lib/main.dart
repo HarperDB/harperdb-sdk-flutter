@@ -26,18 +26,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
+
   // This is your Url global variable
-const String HDB_URL = 'http://localhost:9925';
+const String HDB_URL = 'https://cloud-demo-jaxon.harperdbcloud.com';
   // This is a global variable for your username
-const String HDB_USER = 'HDB_ADMIN';
+const String HDB_USER = 'HDB_READER';
   // This is a global variable for your password
 const String HDB_PASSWORD = 'password';
-  
-  
-  //This handles your return type, it could be either a List for search queries or an Map for queries that insert 
+
+
+  //This handles your return type, it could be either a List for search queries or an Map for queries that insert
   late List harperData;
-  
+
   //Just a future called harperAPI
   late Future harperAPI;
 
@@ -49,7 +49,7 @@ const String HDB_PASSWORD = 'password';
     loadData() //the function name
     async  // it has to be asynchronous
   {
-    var show = await harperDB( //A variable called show is assigned the result ot the function 
+    var show = await harperDB( //A variable called show is assigned the result ot the function
       HDB_URL,
       HDB_USER,
       HDB_PASSWORD,
@@ -73,7 +73,7 @@ const String HDB_PASSWORD = 'password';
   //Initialize your function so it runs as the page opens up
   @override
   void initState() {
-    
+
     harperAPI = loadData();
     super.initState();
   }
@@ -106,7 +106,7 @@ const String HDB_PASSWORD = 'password';
               },
             );
           }
-          else { //This block of code will tell what to do if theres an error 
+          else { //This block of code will tell what to do if theres an error
             return const Center(
                 child: Text("Something went wrong."));
           }

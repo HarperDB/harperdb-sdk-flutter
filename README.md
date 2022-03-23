@@ -26,8 +26,8 @@ import 'package:harperdb/harperdb.dart';
 Set your HDB_URL, HDB_USER, and HDB_PASSWORD variables for use within your application:
 
 ```dart
-const HDB_URL = 'http://localhost:9925';
-const HDB_USER = 'HDB_ADMIN';
+const HDB_URL = 'https://cloud-demo-jaxon.harperdbcloud.com';
+const HDB_USER = 'HDB_READER';
 const HDB_PASSWORD = 'password';
 ```
 
