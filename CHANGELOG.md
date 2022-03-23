@@ -17,3 +17,11 @@
 ## 0.0.5
 
 * Update Public HDB Server
+
+## 0.0.6
+
+* Final tweaks before release
+
+## 0.0.7
+
+* Update metadata
