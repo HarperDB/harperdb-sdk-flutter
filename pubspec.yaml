@@ -1,6 +1,6 @@
 name: harperdb
-description: A flutter SDK for HarperDB operations. Just set your instance's Url, User, and Password, execute an operation, and you're off to the races. Using HarperDB has never been easier- just include the package, define your credentials, and go!
-version: 0.0.7
+description: A flutter SDK for HarperDB operations. Just set your instance's Url, User, and Password, execute an operation, and you're off to the races.
+version: 0.0.9
 homepage: https://github.com/HarperDB/harperdb-sdk-flutter.git
 documentation: https://studio.harperdb.io/resources/marketplace/active
 

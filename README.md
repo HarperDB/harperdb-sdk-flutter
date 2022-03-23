@@ -3,10 +3,7 @@
  ![Pub version](https://img.shields.io/badge/Pub-v0.0.1-orange) ![GitHub all releases](https://img.shields.io/github/downloads/HarperDB/harperdb-sdk-flutter/total) ![language](https://img.shields.io/github/languages/count/HarperDB/harperdb-sdk-flutter?color=g&style=plastic) ![lICENCE](https://img.shields.io/badge/Licence-BSD--3-yellow)
 <br> 
 ---
- A package for connecting Flutter with HarperDB
-
- <br>
- This package provides a way to access HarperDB API database in either SQL or NOSQL format. It is dependent of the http package made by dart-lang. 
+ A package for connecting Flutter with HarperDB. Its only dependency is the http package by dart-lang. 
  
  
  ## *Installation*

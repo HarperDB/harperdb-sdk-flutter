@@ -25,3 +25,11 @@
 ## 0.0.7
 
 * Update metadata
+
+## 0.0.8
+
+* Update metadata
+
+## 0.0.9
+
+* Update readme
