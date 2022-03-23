@@ -1,6 +1,6 @@
 name: harperdb
 description: A flutter SDK for accessing HarperDB Studio easily, The package bridges the gap between the HarperDB cloud API database and the flutter framework. it gives the option to define details of your database such as table name, column name, etc. Using a cloud database API has never been easier, no writing of codes, you require very little knowledge to use this API
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/HarperDB/harperdb-sdk-flutter.git
 documentation: https://studio.harperdb.io/resources/marketplace/active
 
