@@ -28,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   // This is your Url global variable
-const String HDB_URL = 'https://cloud-demo-jaxon.harperdbcloud.com';
+const String HDB_URL = 'https://hdb-publicdemo.harperdbcloud.com';
   // This is a global variable for your username
 const String HDB_USER = 'HDB_READER';
   // This is a global variable for your password

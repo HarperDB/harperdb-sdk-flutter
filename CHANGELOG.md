@@ -13,3 +13,7 @@
 ## 0.0.4
 
 * Update Docs
+
+## 0.0.5
+
+* Update Public HDB Server
