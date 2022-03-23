@@ -1,5 +1,5 @@
 name: harperdb-exmaple-app
-description: A demo app using the local harperdb flutter sdk
+description: A demo app using the local harperdb flutter sdk, it explains the various file part and what is to be done to connect to the database, how we await results, what we do when the result is obtained and what to do when we are not waiting niether are we getting the result from the database.
 version: 0.0.1
 homepage: https://github.com/HarperDB/harperdb_sdk_flutter.git
 documentation: https://studio.harperdb.io/resources/marketplace/active
