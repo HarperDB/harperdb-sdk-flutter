@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // This is a necessary file to call our custom functions from the HarperDB package
 import 'package:harperdb/harperdb.dart';
 
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -26,14 +25,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   // This is your Url global variable
-const String HDB_URL = 'https://hdb-publicdemo.harperdbcloud.com';
+  final String hDBURL = 'https://hdb-publicdemo.harperdbcloud.com';
   // This is a global variable for your username
-const String HDB_USER = 'HDB_READER';
+  final String hDBUSER = 'HDB_READER';
   // This is a global variable for your password
-const String HDB_PASSWORD = 'password';
-
+  final String hDBPASSWORD = 'password';
 
   //This handles your return type, it could be either a List for search queries or an Map for queries that insert
   late List harperData;
@@ -45,18 +42,16 @@ const String HDB_PASSWORD = 'password';
   // The return type for the function varies, it can either be a Map or a List depending on the operation you are carrying out
 
   Future //function type is stated as a future
-    <List> // the fucntion will return future in this case but it can also be set to map in other cases, all you have to do is change <List> to <Map<String, dynamic>>
-    loadData() //the function name
-    async  // it has to be asynchronous
+      <List> // the fucntion will return future in this case but it can also be set to map in other cases, all you have to do is change <List> to <Map<String, dynamic>>
+      loadData() //the function name
+  async // it has to be asynchronous
   {
-    var show = await harperDB( //A variable called show is assigned the result ot the function
-      HDB_URL,
-      HDB_USER,
-      HDB_PASSWORD,
-      {
-        "operation": "sql",
-        "sql": "select * from dev.dog"
-      },
+    var show = await harperDB(
+      //A variable called show is assigned the result ot the function
+      hDBURL,
+      hDBUSER,
+      hDBPASSWORD,
+      {"operation": "sql", "sql": "select * from dev.dog"},
     );
     //this shows you if the query ran properly. The result of your search will be shown in the terminal
     debugPrint(
@@ -73,7 +68,6 @@ const String HDB_PASSWORD = 'password';
   //Initialize your function so it runs as the page opens up
   @override
   void initState() {
-
     harperAPI = loadData();
     super.initState();
   }
@@ -81,13 +75,15 @@ const String HDB_PASSWORD = 'password';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(// the widget is used to show data after it has gotten the result
+      body: FutureBuilder(
+        // the widget is used to show data after it has gotten the result
         future: harperAPI,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) { //This block of code states what is to happen while waiting for the result from the database, in this case it is meant to show a circular progress widget
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            //This block of code states what is to happen while waiting for the result from the database, in this case it is meant to show a circular progress widget
             return const Center(child: CircularProgressIndicator());
-          }
-          else if (snapshot.connectionState == ConnectionState.done) { //This block of code explains what to do when it has gotten the data from the database
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            //This block of code explains what to do when it has gotten the data from the database
             return ListView.builder(
               itemCount: harperData.length,
               itemBuilder: (context, index) {
@@ -105,10 +101,9 @@ const String HDB_PASSWORD = 'password';
                 );
               },
             );
-          }
-          else { //This block of code will tell what to do if theres an error
-            return const Center(
-                child: Text("Something went wrong."));
+          } else {
+            //This block of code will tell what to do if theres an error
+            return const Center(child: Text("Something went wrong."));
           }
         },
       ),
