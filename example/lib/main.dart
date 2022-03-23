@@ -1,9 +1,8 @@
+//This is called depending on the platform app, it could be cupertino for ios and material for dart, This is totally at your discretion
 import 'package:flutter/material.dart';
+// This is a necessary file to call our custom functions from the HarperDB package
 import 'package:harperdb/harperdb.dart';
 
-const HDB_URL = 'http://localhost:9925';
-const HDB_USER = 'HDB_ADMIN';
-const HDB_PASSWORD = 'password';
 
 void main() => runApp(const MyApp());
 
@@ -27,14 +26,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  // This is your Url global variable
+const String HDB_URL = 'http://localhost:9925';
+  // This is a global variable for your username
+const String HDB_USER = 'HDB_ADMIN';
+  // This is a global variable for your password
+const String HDB_PASSWORD = 'password';
+  
+  
+  //This handles your return type, it could be either a List for search queries or an Map for queries that insert 
   late List harperData;
+  
+  //Just a future called harperAPI
   late Future harperAPI;
 
   // This has to be a future function as it would wait for data from the API
   // The return type for the function varies, it can either be a Map or a List depending on the operation you are carrying out
 
-  Future<List> loadData() async {
-    var show = await harperDB(
+  Future //function type is stated as a future
+    <List> // the fucntion will return future in this case but it can also be set to map in other cases, all you have to do is change <List> to <Map<String, dynamic>>
+    loadData() //the function name
+    async  // it has to be asynchronous
+  {
+    var show = await harperDB( //A variable called show is assigned the result ot the function 
       HDB_URL,
       HDB_USER,
       HDB_PASSWORD,
@@ -43,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         "sql": "select * from dev.dog"
       },
     );
-    //this shows you if the query ran properly
+    //this shows you if the query ran properly. The result of your search will be shown in the terminal
     debugPrint(
       show.toString(),
     );
@@ -58,20 +73,21 @@ class _HomeScreenState extends State<HomeScreen> {
   //Initialize your function so it runs as the page opens up
   @override
   void initState() {
-    queryHarperDB = loadData();
+    
+    harperAPI = loadData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: queryHarperDB,
+      body: FutureBuilder(// the widget is used to show data after it has gotten the result
+        future: harperAPI,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting) { //This block of code states what is to happen while waiting for the result from the database, in this case it is meant to show a circular progress widget
             return const Center(child: CircularProgressIndicator());
           }
-          else if (snapshot.connectionState == ConnectionState.done) {
+          else if (snapshot.connectionState == ConnectionState.done) { //This block of code explains what to do when it has gotten the data from the database
             return ListView.builder(
               itemCount: harperData.length,
               itemBuilder: (context, index) {
@@ -90,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           }
-          else {
+          else { //This block of code will tell what to do if theres an error 
             return const Center(
                 child: Text("Something went wrong."));
           }
