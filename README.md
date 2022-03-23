@@ -115,4 +115,4 @@ To display the results of your query, use a FutureBuilder to ensure the data has
   ```
   
   # **NOTE :**
-  The return type of your function dependent on the HarperDB operation you are executing. Queries will return a &lt;List&gt;, while inserts, updates, deletes, etc. will return a &lt;Map&gt;
+  The return type of your function is dependent on the HarperDB operation you are executing. Queries will return a &lt;List&gt;, while inserts, updates, deletes, etc. will return a &lt;Map&gt;
